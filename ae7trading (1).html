@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AE7TRADING - Plataforma de Trading Institucional & SMC</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans for Netflix-style sleekness -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#030712',
+                            darker: '#080d1a',
+                            card: '#0e1726',
+                            cardHover: '#131f37',
+                            electric: '#2563eb',
+                            glow: '#3b82f6',
+                            cyan: '#06b6d4',
+                            accent: '#38bdf8'
+                        }
+                    },
+                    boxShadow: {
+                        'netflix-blue': '0 0 35px -5px rgba(37, 99, 235, 0.45)',
+                        'glow-cyan': '0 0 25px -5px rgba(6, 182, 212, 0.4)',
+                        'card-hover': '0 20px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(37, 99, 235, 0.3)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Netflix Blue & Dark Aesthetics */
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .netflix-glass-nav {
+            background: linear-gradient(180deg, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.8) 70%, rgba(3, 7, 18, 0) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .netflix-card {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(14, 23, 38, 0.75);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+        }
+
+        .netflix-card:hover {
+            transform: scale(1.04) translateY(-6px);
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.95), 0 0 30px rgba(37, 99, 235, 0.35);
+            z-index: 20;
+        }
+
+        .text-gradient-blue {
+            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-vignette {
+            background: radial-gradient(circle at 75% 35%, rgba(37, 99, 235, 0.3) 0%, transparent 65%),
+                        linear-gradient(180deg, rgba(3, 7, 18, 0.4) 0%, rgba(3, 7, 18, 0.95) 85%, #030712 100%);
+        }
+
+        /* Scrollbar customization */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-brand-electric selection:text-white relative bg-brand-black">
+
+    <div class="bg-gradient-to-r from-blue-950 via-slate-950 to-blue-950 border-b border-blue-900/40 text-xs py-2 px-4 text-center text-slate-300">
+        <span class="inline-flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping"></span>
+            <strong class="text-white uppercase tracking-wider font-mono">EN VIVO:</strong> Transmisión en la Sesión NY & ASIA. Con Operativa y Clases. Unete en Telegram.
+        </span>
+        <a href="https://t.me/CIRUJANOFX66" target="_blank" class="ml-3 font-bold text-brand-cyan hover:underline inline-flex items-center gap-1">
+            Unirme Gratis <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </a>
+    </div>
+
+    <header class="sticky top-0 z-50 netflix-glass-nav border-b border-slate-900/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Left Brand Logo & Primary Menu -->
+            <div class="flex items-center gap-8">
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-xl bg-slate-900/90 border border-blue-500/30 flex items-center justify-center shadow-netflix-blue group-hover:scale-105 transition-transform p-1.5">
+                        <!-- Icono SVG de Velas Japonesas Azules y Blancas -->
+                        <svg class="w-full h-full" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Vela 1 (Azul) -->
+                            <line x1="10" y1="6" x2="10" y2="34" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+                            <rect x="7" y="14" width="6" height="12" rx="1.5" fill="#2563eb" stroke="#60a5fa" stroke-width="1"/>
+                            
+                            <!-- Vela 2 (Blanca) -->
+                            <line x1="20" y1="4" x2="20" y2="36" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                            <rect x="17" y="9" width="6" height="18" rx="1.5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+                            
+                            <!-- Vela 3 (Azul) -->
+                            <line x1="30" y1="8" x2="30" y2="32" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+                            <rect x="27" y="15" width="6" height="10" rx="1.5" fill="#3b82f6" stroke="#93c5fd" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-black tracking-wider text-white">AE7<span class="text-brand-glow">TRADING</span></span>
+                        <span class="block text-[9px] font-mono tracking-widest text-brand-cyan uppercase -mt-1">Institutional Streaming</span>
+                    </div>
+                </a>
+
+                <!-- Main Streaming Navigation -->
+                <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300">
+                    <a href="#inicio" class="text-white font-semibold hover:text-brand-glow transition-colors">Inicio</a>
+                    <a href="#cursos" class="hover:text-brand-glow transition-colors">Cursos</a>
+                    <a href="#biblioteca" class="hover:text-brand-glow transition-colors">Biblioteca Drive</a>
+                    <a href="#descargas" class="hover:text-brand-glow transition-colors">Descargas</a>
+                    <a href="#nosotros" class="hover:text-brand-glow transition-colors">Sobre Nosotros</a>
+                    <a href="#contacto" class="hover:text-brand-glow transition-colors">Contacto</a>
+                </nav>
+            </div>
+
+            <!-- Right Actions & User Profile -->
+            <div class="hidden sm:flex items-center gap-4">
+                <div class="relative">
+                    <input type="text" placeholder="Buscar lecciones, PDFs..." class="w-48 px-3 py-1.5 pl-9 bg-slate-950/80 border border-slate-800 rounded-full text-xs text-white focus:outline-none focus:border-brand-electric focus:w-60 transition-all">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
+                </div>
+
+                <button onclick="toggleModal('studentModal')" class="px-4 py-2 text-xs font-bold text-white bg-slate-900/90 border border-slate-700/80 rounded-xl hover:border-brand-glow hover:bg-slate-800 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-circle-user text-brand-glow text-sm"></i>
+                    <span>Área Alumnos</span>
+                </button>
+                <button onclick="toggleModal('adminModal')" class="px-4 py-2 text-xs font-bold text-slate-950 bg-gradient-to-r from-blue-400 via-brand-glow to-cyan-400 hover:brightness-110 rounded-xl shadow-netflix-blue transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Panel Admin</span>
+                </button>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobileBtn" class="lg:hidden text-slate-300 hover:text-white text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-slate-950 border-b border-slate-800 px-6 py-6 space-y-4 text-sm font-medium">
+            <a href="#inicio" onclick="closeMobileNav()" class="block text-white font-semibold">Inicio</a>
+            <a href="#cursos" onclick="closeMobileNav()" class="block text-slate-300 hover:text-brand-glow">Cursos</a>
+            <a href="#biblioteca" onclick="closeMobileNav()" class="block text-slate-300 hover:text-brand-glow">Biblioteca Drive</a>
+            <a href="#descargas" onclick="closeMobileNav()" class="block text-slate-300 hover:text-brand-glow">Descargas Directas</a>
+            <a href="#nosotros" onclick="closeMobileNav()" class="block text-slate-300 hover:text-brand-glow">Sobre Nosotros</a>
+            <a href="#contacto" onclick="closeMobileNav()" class="block text-slate-300 hover:text-brand-glow">Contacto & Soporte</a>
+            <div class="pt-4 border-t border-slate-800 flex flex-col gap-2">
+                <button onclick="toggleModal('studentModal'); closeMobileNav();" class="w-full py-2.5 text-xs font-bold text-white bg-slate-900 border border-slate-700 rounded-xl">Área de Alumnos</button>
+                <button onclick="toggleModal('adminModal'); closeMobileNav();" class="w-full py-2.5 text-xs font-bold text-slate-950 bg-brand-glow rounded-xl">Panel Administrativo</button>
+            </div>
+        </div>
+    </header>
+
+    <section id="inicio" class="relative pt-6 pb-20 lg:pt-12 lg:pb-32 overflow-hidden">
+        
+        <!-- Hero Background Cover Image & Vignette -->
+        <div class="absolute inset-0 z-0 overflow-hidden bg-slate-950">
+            <img id="heroBgImage" 
+                 src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=2000&q=80" 
+                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=2000&q=80';"
+                 alt="Gráficos de trading con velas japonesas en pantallas" 
+                 class="w-full h-full object-cover object-center opacity-40 scale-105 filter brightness-90 contrast-125 transition-opacity duration-700">
+            <!-- Dark Gradient overlay on the left side to maximize typography readability -->
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/90 to-brand-black/40 z-10"></div>
+            <div class="absolute inset-0 hero-vignette z-10"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="max-w-3xl pt-8 sm:pt-16">
+                <!-- Netflix Badge -->
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-brand-glow/40 text-xs font-mono text-slate-300 mb-6 shadow-inner">
+                    <span class="w-2 h-2 rounded-full bg-brand-cyan animate-pulse"></span>
+                    <span class="text-brand-glow font-bold uppercase tracking-wider">AE7 ORIGINAL MASTERCLASS</span>
+                    <span class="text-slate-600">|</span>
+                    <span class="text-white font-semibold">Aprende trading institucional</span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-tight">
+                    Deja de operar como la mayoría y aprende a <span class="text-gradient-blue">operar como lo hacen los Bancos y las grandes Instituciones</span>
+                </h1>
+
+                <!-- Subtitle Description -->
+                <p class="mt-6 text-base sm:text-xl text-slate-300 font-normal leading-relaxed max-w-2xl">
+                    Aprende a descifrar el mercado que parece impredecible y manipulado. Entendiendo las huellas que dejan las grandes instituciones financieras para operar con mayor confianza y precisión.
+                </p>
+
+                <!-- Hero Meta Data Tag Line -->
+                <div class="mt-4 flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400">
+                    <span class="px-2 py-0.5 rounded border border-emerald-500/50 text-emerald-400 font-bold">98% Match</span>
+                    <span>2026</span>
+                    <span class="px-2 py-0.5 rounded border border-slate-700 bg-slate-900">4K Ultra HD</span>
+                    <span>+4,800 Alumnos Fondeados</span>
+                    <span class="text-cyan-400 font-bold"><i class="fa-solid fa-star text-amber-400"></i> 4.98 Rating</span>
+                </div>
+
+                <!-- CTA Action Buttons (Netflix Style) -->
+                <div class="mt-8 flex flex-col sm:flex-row items-center gap-4">
+                    <a href="#cursos" class="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-200 text-slate-950 font-black text-base rounded-xl shadow-netflix-blue hover:scale-105 transition-all flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-play text-xl text-brand-electric"></i>
+                        <span>Comenzar Ahora</span>
+                    </a>
+                    <a href="https://1drv.ms/f/c/29a5bf78f6c55d9d/IgCLUNWjqcRJQ6Hb9_VKAMNxAQXlNahiPdwowzmifueUIYk" target="_blank" class="w-full sm:w-auto px-7 py-4 bg-slate-900/80 hover:bg-slate-800/90 text-white font-bold text-base rounded-xl border border-slate-700/80 backdrop-blur-md transition-all flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-circle-info text-brand-cyan text-lg"></i>
+                        <span>Ver Clase de Muestra (6min)</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Se eliminó el gráfico de TradingView del hero -->
+        </div>
+    </section>
+
+    <!-- Sección de Nosotros/Filosofía movida al inicio -->
+    <section id="nosotros" class="py-24 bg-slate-950 border-t border-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 relative">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-brand-electric to-brand-cyan rounded-3xl blur-xl opacity-25"></div>
+                    <div class="relative rounded-3xl bg-slate-900 border border-slate-800 p-6 overflow-hidden">
+                        <img src="https://i.postimg.cc/tCgXgzq3/online-trading-trader.jpg" alt="AE7TRADING Mentor" class="w-full h-80 object-cover rounded-2xl mb-6">
+                        <div class="flex items-center justify-between font-mono text-xs text-slate-300">
+                            <div>
+                                <div class="text-white font-bold text-base">AE7TRADING ACADEMY</div>
+                                <div class="text-brand-cyan">Fundador & Senior Head Trader</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-emerald-400 font-bold">+7 Años Exp.</div>
+                                <div class="text-slate-500">Mercado Forex</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="text-xs font-mono font-bold text-brand-cyan uppercase tracking-widest">DOCUMENTAL & FILOSOFÍA</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Transparencia Radical y Filosofía Institucional</h2>
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        Fundamos AE7TRADING con una misión clara: erradicar el humo en la industria del trading de habla hispana. No vendemos cursos, te enseñamos una estrategia y un sistema que te hará un trader rentable. ¿En qué consiste el Trading Institucional?
+                    </p>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        El trading institucional no es una estrategia cerrada ni un sistema mecánico. Es un método de análisis del mercado que parte de la base de que las instituciones financieras son las que mueven realmente el precio. Por tanto, si aprendemos a identificar sus zonas de entrada, manipulación y acumulación de liquidez, podemos operar con una ventaja significativa.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 pt-4 font-mono text-sm">
+                        <div class="flex items-center gap-3 text-slate-200">
+                            <i class="fa-solid fa-circle-check text-brand-cyan"></i>
+                            <span>Basado en estructura del mercado: Se analizan las zonas clave donde se concentra la liquidez y se producen cambios de comportamiento en el precio.</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-200">
+                            <i class="fa-solid fa-circle-check text-brand-cyan"></i>
+                            <span>Ratios Riesgo/Beneficio elevados: Las entradas se buscan con objetivos ambiciosos, como 1:2, a 1:5.</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-200">
+                            <i class="fa-solid fa-circle-check text-brand-cyan"></i>
+                            <span>Sin indicadores: Se prescinde de herramientas como RSI, MACD o Medias Móviles. Todo el análisis se hace a partir de la observación directa del precio.</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-200">
+                            <i class="fa-solid fa-circle-check text-brand-cyan"></i>
+                            <span>Aplicable a cualquier mercado y temporalidad: Puede utilizarse en Forex, criptomonedas, acciones, índices y en gráficos de 15 minutos para marcar los maximos y minimos y confirmar las entradas en 5 minutos.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Resto de las secciones (Cursos, Biblioteca, Herramientas, etc.) -->
+    <section id="cursos" class="py-20 bg-slate-950 border-t border-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex items-center justify-between mb-10">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-cyan uppercase tracking-widest">SERIES FORMATIVAS EXCLUSIVAS</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">Nuestros Cursos de Trading Institucional</h2>
+                </div>
+                <span class="hidden sm:block text-xs font-mono text-slate-500">Temporada 2026 • Acceso de Por Vida</span>
+            </div>
+
+            <!-- Contenedor ajustado a Grid para mostrar ambos cursos lado a lado -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <!-- Curso 1: Trading Institucional Básico -->
+                <div class="netflix-card rounded-2xl overflow-hidden flex flex-col justify-between border border-slate-800">
+                    <div class="h-64 relative overflow-hidden group">
+                        <img src="https://i.postimg.cc/x8pqdxBz/que-es-trading-BBVA-salud-financiera.avif" alt="Trading Institucional Básico" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex justify-between items-center">
+                            <span class="bg-brand-electric/90 text-white font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-md">Nivel Principiante a Intermedio Alto</span>
+                            <span class="bg-slate-950/80 text-brand-cyan border border-brand-cyan/30 text-xs font-mono px-3 py-1 rounded-full font-bold">Masterclass HD</span>
+                        </div>
+                        <a href="https://1drv.ms/f/c/29a5bf78f6c55d9d/IgCLUNWjqcRJQ6Hb9_VKAMNxAQXlNahiPdwowzmifueUIYk" target="_blank" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-brand-glow/90 text-white text-2xl flex items-center justify-center shadow-netflix-blue opacity-90 hover:scale-110 transition-all">
+                            <i class="fa-solid fa-play ml-1"></i>
+                        </a>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-white mb-2">Trading Institucional Básico</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Entiende cómo funciona el mercado financiero, la estructura del mercado y elimina los errores de un trader retail.</p>
+                        <div class="space-y-3 text-xs font-mono text-slate-300 border-t border-b border-slate-800/80 py-4 mb-6">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-circle-play text-brand-glow text-sm"></i> <span>23 Clases en Alta Definición</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-file-powerpoint text-brand-cyan text-sm"></i> <span>Incluye Plantillas PPT</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-clock text-slate-400 text-sm"></i> <span>Duración: 6 Horas</span></div>
+                        </div>
+                        <div class="flex items-center justify-between pt-2">
+                            <div>
+                                <span class="text-xs text-slate-500 line-through">$500 USD</span>
+                                <div class="text-3xl font-black text-white font-mono">$250 <span class="text-xs font-normal text-slate-400">USD</span></div>
+                            </div>
+                            <button onclick="openCheckoutModal('Trading Institucional Básico', 250)" class="px-6 py-3.5 bg-gradient-to-r from-brand-electric to-blue-600 hover:from-blue-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-netflix-blue transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-cart-shopping"></i> <span>Comprar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Curso 2: Avanzado Ultra Instinto -->
+                <div class="netflix-card rounded-2xl overflow-hidden flex flex-col justify-between border border-slate-800">
+                    <div class="h-64 relative overflow-hidden group">
+                        <img src="https://i.postimg.cc/DZbM7Tcp/Candlesticks-analysis-technical.jpg" alt="Avanzado Ultra Instinto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex justify-between items-center">
+                            <span class="bg-indigo-600/90 text-white font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-md">Nivel Avanzado</span>
+                            <span class="bg-slate-950/80 text-brand-glow border border-brand-glow/30 text-xs font-mono px-3 py-1 rounded-full font-bold">Ultra Instinto</span>
+                        </div>
+                        <a href="#" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-indigo-500/90 text-white text-2xl flex items-center justify-center shadow-netflix-blue opacity-90 hover:scale-110 transition-all">
+                            <i class="fa-solid fa-bolt ml-1"></i>
+                        </a>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-white mb-2">Avanzado Institucional Ultra-Instinto</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Domina todos los mercados financieros, con un sistema de alta precisión y psicología de mercado de élite.</p>
+                        <div class="space-y-3 text-xs font-mono text-slate-300 border-t border-b border-slate-800/80 py-4 mb-6">
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-list-ol text-brand-glow text-sm"></i> <span>15 Clases Grabadas en 4k</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-clock text-slate-400 text-sm"></i> <span>Duración: 10 Horas</span></div>
+                            <div class="flex items-center gap-3"><i class="fa-solid fa-microchip text-brand-cyan text-sm"></i> <span>Análisis de Algoritmo IPDA</span></div>
+                        </div>
+                        <div class="flex items-center justify-between pt-2">
+                            <div>
+                                <span class="text-xs text-slate-500 opacity-0">$0 USD</span>
+                                <div class="text-3xl font-black text-white font-mono">$500 <span class="text-xs font-normal text-slate-400">USD</span></div>
+                            </div>
+                            <button onclick="openCheckoutModal('Avanzado Ultra Instinto', 500)" class="px-6 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-purple-600 hover:to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow-netflix-blue transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-cart-shopping"></i> <span>Comprar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-20 bg-brand-black border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono font-bold text-brand-cyan uppercase tracking-widest">¿POR QUÉ TRADING INSTITUCIONAL?</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-2">Ventajas de Entender la Manipulación Bancaria</h2>
+                <p class="text-slate-400 text-base mt-3">El 95% de los traders minoristas pierden capital intentando adivinar tendencias. Así operamos en AE7TRADING:</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="netflix-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-600/15 text-brand-glow flex items-center justify-center text-2xl mb-6 border border-blue-500/20">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Lectura de Liquidez Real</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Aprende a identificar dónde están acumulados los Stop Loss del público para entrar exactamente cuando las instituciones liquidan a la masa.
+                    </p>
+                </div>
+
+                <div class="netflix-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-600/15 text-brand-cyan flex items-center justify-center text-2xl mb-6 border border-cyan-500/20">
+                        <i class="fa-solid fa-crosshairs"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Stop Loss Ultra Ajustados</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Pasa de Stop Loss de 40-50 pips a invalidaciones precisas de 5-10 pips, aumentando tu ratio retorno/riesgo exponencialmente.
+                    </p>
+                </div>
+
+                <div class="netflix-card p-8 rounded-2xl">
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-600/15 text-indigo-400 flex items-center justify-center text-2xl mb-6 border border-indigo-500/20">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Sin Indicadores Ni Ruido</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Limpia tu gráfico por completo. Opera el precio desnudo con conceptos lógicos basados en oferta, demanda y algoritmos interbancarios (IPDA).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="biblioteca" class="py-24 bg-slate-950 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-cyan uppercase tracking-widest">📂 RECURSOS EN NUBE (GOOGLE DRIVE)</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-2">Biblioteca de Materiales</h2>
+                    <p class="text-slate-400 text-sm mt-2">Accede directamente a nuestros archivos organizados. Haz clic para abrir el enlace oficial de Google Drive.</p>
+                </div>
+
+                <!-- Filter Pills -->
+                <div class="flex flex-wrap gap-2" id="materialFilterButtons">
+                    <button onclick="filterMaterials('all')" class="filter-btn active px-4 py-2 rounded-xl text-xs font-bold bg-brand-electric text-white transition-all shadow-netflix-blue">Todos</button>
+                    <button onclick="filterMaterials('pdf')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 transition-all">PDF & Ebooks</button>
+                    <button onclick="filterMaterials('plantillas')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 transition-all">Plantillas Excel</button>
+                    <button onclick="filterMaterials('indicadores')" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 transition-all">Indicadores TradingView</button>
+                </div>
+            </div>
+
+            <!-- Material Items Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="materialsGrid">
+                
+                <!-- Material Item 1 -->
+                <div class="material-card netflix-card p-6 rounded-2xl flex flex-col justify-between" data-category="pdf">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="p-3 bg-red-500/10 text-red-400 rounded-xl text-xl border border-red-500/20"><i class="fa-solid fa-file-pdf"></i></span>
+                            <span class="text-[10px] font-mono bg-slate-900 px-2.5 py-1 rounded-md text-slate-400 border border-slate-800">PDF • 4.8 MB</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Manual de Trading Institucional & SMC</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Guía ilustrada con esquemas de acumulación Wyckoff, Order Blocks y ejemplos en gráficos reales.
+                        </p>
+                    </div>
+                    <a href="https://drive.google.com" target="_blank" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-brand-cyan font-mono text-xs font-bold rounded-xl border border-slate-700/80 hover:border-brand-cyan transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-google-drive text-sm"></i>
+                        <span>Abrir en Google Drive</span>
+                    </a>
+                </div>
+
+                <!-- Material Item 2 -->
+                <div class="material-card netflix-card p-6 rounded-2xl flex flex-col justify-between" data-category="plantillas">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl text-xl border border-emerald-500/20"><i class="fa-solid fa-file-excel"></i></span>
+                            <span class="text-[10px] font-mono bg-slate-900 px-2.5 py-1 rounded-md text-slate-400 border border-slate-800">EXCEL • 1.2 MB</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Bitácora Profesional de Backtesting</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Plantilla automatizada con cálculo de Winrate, Drawdown y Profit Factor por sesión.
+                        </p>
+                    </div>
+                    <a href="https://drive.google.com" target="_blank" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-emerald-400 font-mono text-xs font-bold rounded-xl border border-slate-700/80 hover:border-emerald-500 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-google-drive text-sm"></i>
+                        <span>Abrir en Google Drive</span>
+                    </a>
+                </div>
+
+                <!-- Material Item 3 -->
+                <div class="material-card netflix-card p-6 rounded-2xl flex flex-col justify-between" data-category="indicadores">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="p-3 bg-brand-glow/10 text-brand-glow rounded-xl text-xl border border-blue-500/20"><i class="fa-solid fa-code"></i></span>
+                            <span class="text-[10px] font-mono bg-slate-900 px-2.5 py-1 rounded-md text-slate-400 border border-slate-800">PINE SCRIPT • TV</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Indicador de Killzones NY & Londres</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Sombreado automático en TradingView para los rangos operativos de mayor volatilidad bancaria.
+                        </p>
+                    </div>
+                    <a href="https://drive.google.com" target="_blank" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-brand-glow font-mono text-xs font-bold rounded-xl border border-slate-700/80 hover:border-brand-glow transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-google-drive text-sm"></i>
+                        <span>Abrir en Google Drive</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="descargas" class="py-20 bg-brand-black border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono font-bold text-brand-glow uppercase tracking-widest">DESCARGAS DIRECTAS EN NUBE</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Herramientas Esenciales del Trader</h2>
+                <p class="text-slate-400 text-sm mt-2">Checklists diarios, planes de gestión y calendarios listos para tu operativa.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="netflix-card p-5 rounded-2xl text-center cursor-pointer" onclick="downloadSimulation('Checklist Diario SMC')">
+                    <div class="text-3xl text-brand-cyan mb-3"><i class="fa-solid fa-list-check"></i></div>
+                    <div class="text-xs font-bold text-white mb-1">Checklist Diario</div>
+                    <div class="text-[10px] text-slate-500 font-mono">Formato PDF</div>
+                </div>
+
+                <div class="netflix-card p-5 rounded-2xl text-center cursor-pointer" onclick="downloadSimulation('Plan de Trading Oficial')">
+                    <div class="text-3xl text-brand-glow mb-3"><i class="fa-solid fa-compass"></i></div>
+                    <div class="text-xs font-bold text-white mb-1">Plan de Trading</div>
+                    <div class="text-[10px] text-slate-500 font-mono">Formato PDF</div>
+                </div>
+
+                <div class="netflix-card p-5 rounded-2xl text-center cursor-pointer" onclick="window.open('https://www.myfxbook.com/es/forex-calculators/position-size', '_blank')">
+                    <div class="text-3xl text-emerald-400 mb-3"><i class="fa-solid fa-calculator"></i></div>
+                    <div class="text-xs font-bold text-white mb-1">Calculadora Lote</div>
+                    <div class="text-[10px] text-slate-500 font-mono">Excel Automático</div>
+                </div>
+
+                <div class="netflix-card p-5 rounded-2xl text-center cursor-pointer" onclick="downloadSimulation('Matriz de Gestíon de Riesgo')">
+                    <div class="text-3xl text-indigo-400 mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="text-xs font-bold text-white mb-1">Matriz de Riesgo</div>
+                    <div class="text-[10px] text-slate-500 font-mono">Hoja de Cálculo</div>
+                </div>
+
+                <div class="netflix-card p-5 rounded-2xl text-center cursor-pointer" onclick="downloadSimulation('Esquemas Liquidez SMC')">
+                    <div class="text-3xl text-sky-400 mb-3"><i class="fa-solid fa-diagram-project"></i></div>
+                    <div class="text-xs font-bold text-white mb-1">Esquemas Liquidez</div>
+                    <div class="text-[10px] text-slate-500 font-mono">Infografía HD</div>
+                </div>
+
+                <div class="netflix-card p-5 rounded-2xl text-center cursor-pointer" onclick="window.open('https://www.forexfactory.com/', '_blank')">
+                    <div class="text-3xl text-purple-400 mb-3"><i class="fa-solid fa-calendar-days"></i></div>
+                    <div class="text-xs font-bold text-white mb-1">Calendario NFP</div>
+                    <div class="text-[10px] text-slate-500 font-mono">Guía de Noticia</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección del Gráfico movida a la parte de abajo -->
+    <section id="grafico-en-vivo" class="py-20 bg-brand-black border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10 text-center">
+                <span class="text-xs font-mono font-bold text-brand-cyan uppercase tracking-widest">VISUALIZACIÓN DE MERCADO</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">Análisis de Mercado en Tiempo Real</h2>
+                <p class="text-slate-400 text-sm mt-2">Monitorea tus activos favoritos con nuestro gráfico institucional configurado para tu operativa.</p>
+            </div>
+            <div class="netflix-card rounded-2xl overflow-hidden border border-slate-800/80 backdrop-blur-xl shadow-2xl">
+                <div class="flex items-center justify-between px-5 py-3 bg-slate-950 border-b border-slate-800 text-xs font-mono">
+                    <div class="flex items-center gap-3">
+                        <span class="text-slate-300 font-semibold">XAUUSD (ORO / DÓLAR) • Gráfico Institucional en Vivo</span>
+                    </div>
+                </div>
+                <div class="w-full h-[480px] bg-slate-950 relative p-3 font-mono">
+                    <div id="tradingview_xauusd" class="w-full h-full"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                    <script type="text/javascript">
+                        new TradingView.widget({
+                            "autosize": true,
+                            "symbol": "OANDA:XAUUSD",
+                            "interval": "15",
+                            "timezone": "Etc/UTC",
+                            "theme": "dark",
+                            "style": "1",
+                            "locale": "es",
+                            "container_id": "tradingview_xauusd",
+                            "overrides": {
+                                "mainSeriesProperties.candleStyle.upColor": "#ffffff",
+                                "mainSeriesProperties.candleStyle.downColor": "#2563eb",
+                                "mainSeriesProperties.candleStyle.borderUpColor": "#ffffff",
+                                "mainSeriesProperties.candleStyle.borderDownColor": "#2563eb",
+                                "mainSeriesProperties.candleStyle.wickUpColor": "#ffffff",
+                                "mainSeriesProperties.candleStyle.wickDownColor": "#2563eb"
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-24 bg-brand-black border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <div class="lg:col-span-6 space-y-8">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-brand-cyan uppercase tracking-widest">CENTRO DE ASISTENCIA</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">¿Tienes Dudas Antes de Iniciar?</h2>
+                        <p class="text-slate-400 text-sm mt-2">Nuestro equipo técnico y mentores están listos para ayudarte.</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="netflix-card rounded-xl border border-slate-800 overflow-hidden">
+                            <button onclick="toggleFaq(this)" class="w-full p-4 text-left font-bold text-white text-sm flex justify-between items-center">
+                                <span>¿Necesito experiencia previa para tomar el curso?</span>
+                                <i class="fa-solid fa-chevron-down text-brand-cyan transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 pt-0 text-slate-400 text-xs leading-relaxed border-t border-slate-900">
+                                No. El programa "Trading Institucional Básico" está diseñado desde cero para llevarte paso a paso por la lógica del mercado de Forex.
+                            </div>
+                        </div>
+
+                        <div class="netflix-card rounded-xl border border-slate-800 overflow-hidden">
+                            <button onclick="toggleFaq(this)" class="w-full p-4 text-left font-bold text-white text-sm flex justify-between items-center">
+                                <span>¿Por cuánto tiempo tendré acceso a los cursos y materiales?</span>
+                                <i class="fa-solid fa-chevron-down text-brand-cyan transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 pt-0 text-slate-400 text-xs leading-relaxed border-t border-slate-900">
+                                El acceso es ilimitado de por vida. Incluye todas las actualizaciones de clases y enlaces de materiales en Google Drive.
+                            </div>
+                        </div>
+
+                        <div class="netflix-card rounded-xl border border-slate-800 overflow-hidden">
+                            <button onclick="toggleFaq(this)" class="w-full p-4 text-left font-bold text-white text-sm flex justify-between items-center">
+                                <span>¿Aceptan pagos con criptomonedas o PayPal?</span>
+                                <i class="fa-solid fa-chevron-down text-brand-cyan transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 pt-0 text-slate-400 text-xs leading-relaxed border-t border-slate-900">
+                                Sí. Procesamos pagos seguros mediante tarjetas de crédito/débito en Stripe, PayPal y USDT/USDC en red TRC20/BEP20.
+                            </div>
+                        </div>
+
+                        <div class="netflix-card rounded-xl border border-slate-800 overflow-hidden">
+                            <button onclick="toggleFaq(this)" class="w-full p-4 text-left font-bold text-white text-sm flex justify-between items-center">
+                                <span>¿Cómo crear una cuenta demo en el broker XM?</span>
+                                <i class="fa-solid fa-chevron-down text-brand-cyan transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 pt-0 text-slate-400 text-xs leading-relaxed border-t border-slate-900">
+                                Para crear una cuenta demo, visita <a href="https://www.xm.com" target="_blank" class="text-brand-cyan underline">www.xm.com</a>, selecciona "Abrir Cuenta Demo", rellena tus datos personales y elige la plataforma (MT4/MT5) y el saldo virtual. Recibirás tus credenciales por correo electrónico.
+                            </div>
+                        </div>
+
+                        <div class="netflix-card rounded-xl border border-slate-800 overflow-hidden">
+                            <button onclick="toggleFaq(this)" class="w-full p-4 text-left font-bold text-white text-sm flex justify-between items-center">
+                                <span>¿Cómo crear una cuenta real ultra low en el broker XM?</span>
+                                <i class="fa-solid fa-chevron-down text-brand-cyan transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 pt-0 text-slate-400 text-xs leading-relaxed border-t border-slate-900">
+                                Para crear una cuenta XM Ultra Low, visita <a href="https://www.xm.com" target="_blank" class="text-brand-cyan underline">www.xm.com</a>, regístrate y accede a tu Área de Usuarios. Selecciona "Abrir Cuenta Real", elige el tipo de cuenta "XM Ultra Low" durante el proceso, completa la verificación (KYC) enviando tus documentos y, una vez aprobada, realiza tu depósito para empezar a operar con spreads bajos y sin comisiones.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="netflix-card p-8 rounded-3xl border border-slate-800 shadow-2xl">
+                        <h3 class="text-xl font-bold text-white mb-6">Envíanos un Mensaje Directo</h3>
+                        <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 mb-1">Nombre Completo</label>
+                                <input type="text" required placeholder="Ej. Carlos Mendoza" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-brand-glow">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 mb-1">Correo Electrónico</label>
+                                <input type="email" required placeholder="carlos@gmail.com" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-brand-glow">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 mb-1">Asunto de Consulta</label>
+                                <select class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-brand-glow">
+                                    <option>Información de Cursos</option>
+                                    <option>Acceso a Google Drive</option>
+                                    <option>Soporte Técnico</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-slate-300 mb-1">Mensaje</label>
+                                <textarea rows="4" required placeholder="Escribe tu mensaje..." class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-brand-glow"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-brand-electric to-blue-600 hover:from-blue-600 hover:to-indigo-600 text-white font-bold text-xs rounded-xl shadow-netflix-blue transition-all">
+                                Enviar Consulta
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 text-slate-500 text-xs py-12 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-slate-900 border border-blue-500/30 flex items-center justify-center p-1.5">
+                    <!-- Icono SVG de Velas Japonesas Azules y Blancas -->
+                    <svg class="w-full h-full" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Vela 1 (Azul) -->
+                        <line x1="10" y1="6" x2="10" y2="34" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="7" y="14" width="6" height="12" rx="1.5" fill="#2563eb" stroke="#60a5fa" stroke-width="1"/>
+                        
+                        <!-- Vela 2 (Blanca) -->
+                        <line x1="20" y1="4" x2="20" y2="36" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="17" y="9" width="6" height="18" rx="1.5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+                        
+                        <!-- Vela 3 (Azul) -->
+                        <line x1="30" y1="8" x2="30" y2="32" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="27" y="15" width="6" height="10" rx="1.5" fill="#3b82f6" stroke="#93c5fd" stroke-width="1"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-sm font-bold text-white">AE7TRADING ACADEMY</span>
+                    <span class="block text-[10px] text-slate-600">© 2026 Todos los derechos reservados.</span>
+                </div>
+            </div>
+            <div class="flex gap-6 text-slate-400 font-mono text-[11px]">
+                <a href="#" class="hover:text-white">Aviso Legal</a>
+                <a href="#" class="hover:text-white">Gestión de Riesgo</a>
+                <a href="#" class="hover:text-white">Términos de Servicio</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="studentModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-5xl w-full p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleModal('studentModal')" class="absolute top-6 right-6 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-electric/20 text-brand-glow flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-tv"></i>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white">Área Privada de Alumnos</h3>
+                    <p class="text-xs text-slate-400">Reproductor de streaming de lecciones activas.</p>
+                </div>
+            </div>
+
+            <!-- Student Dashboard Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="space-y-4">
+                    <div class="netflix-card p-4 rounded-xl border border-slate-800">
+                        <div class="text-[10px] text-slate-400 font-mono mb-1">PERFIL ALUMNO</div>
+                        <div class="text-sm font-bold text-white">Gabriel Torres</div>
+                        <div class="text-[10px] text-emerald-400 font-mono mt-1">● Membresía Activa</div>
+                    </div>
+                    <div class="netflix-card p-4 rounded-xl border border-slate-800">
+                        <div class="text-[10px] text-slate-400 font-mono mb-2">PROGRESO DEL CURSO</div>
+                        <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden mb-1">
+                            <div class="bg-brand-glow h-full w-[65%]"></div>
+                        </div>
+                        <div class="text-right text-[10px] font-mono text-brand-cyan">65% Completado</div>
+                    </div>
+                    
+                    <div class="space-y-1 text-xs">
+                        <div class="p-3 bg-slate-950 border border-brand-glow/40 rounded-xl text-white font-bold flex justify-between items-center cursor-pointer">
+                            <span>Clase 1: Estrata Wyckoff & Liquidez</span>
+                            <i class="fa-solid fa-circle-play text-brand-glow text-xs"></i>
+                        </div>
+                        <div class="p-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-400 flex justify-between items-center cursor-pointer hover:text-white">
+                            <span>Clase 2: Order Blocks & Fair Value Gap</span>
+                            <i class="fa-solid fa-lock text-slate-600 text-xs"></i>
+                        </div>
+                        <div class="p-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-400 flex justify-between items-center cursor-pointer hover:text-white">
+                            <span>Clase 3: Modelos de Entrada NY</span>
+                            <i class="fa-solid fa-lock text-slate-600 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Streaming Player Simulation -->
+                <div class="md:col-span-2 space-y-4">
+                    <div class="w-full h-72 bg-slate-950 rounded-2xl border border-slate-800 flex flex-col items-center justify-center relative overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-40">
+                        <button onclick="alert('Iniciando reproductor de clase HD en vivo...')" class="absolute w-16 h-16 rounded-full bg-brand-electric text-white text-2xl flex items-center justify-center shadow-netflix-blue group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-play ml-1"></i>
+                        </button>
+                        <span class="absolute bottom-3 left-3 bg-slate-950/90 text-xs text-slate-300 font-mono px-3 py-1 rounded-md border border-slate-800">
+                            Lección 1: Barrido de Liquidez Alcista (1080p 60fps)
+                        </span>
+                    </div>
+                    <div class="netflix-card p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <div class="text-xs font-bold text-white">Material Adjunto de la Clase</div>
+                            <div class="text-[10px] text-slate-400 font-mono">Archivo en Google Drive</div>
+                        </div>
+                        <a href="https://drive.google.com" target="_blank" class="px-4 py-2 bg-brand-cyan text-slate-950 font-bold text-xs rounded-lg hover:brightness-110 transition-all">
+                            Descargar PDF
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="adminModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4">
+        <div class="bg-slate-900 border border-brand-glow/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative shadow-netflix-blue max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleModal('adminModal')" class="absolute top-6 right-6 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-glow/20 text-brand-glow flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white">Panel de Administración CMS</h3>
+                    <p class="text-xs text-slate-400">Publica contenido, PDFs y links de Drive sin tocar una sola línea de código.</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleAdminAddResource(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-mono text-brand-cyan mb-1">Tipo de Contenido a Publicar</label>
+                    <select id="adminType" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-brand-glow">
+                        <option value="drive">Nuevo Recurso en Google Drive (PDF / Plantilla)</option>
+                        <option value="course">Nueva Clase / Lección</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono text-slate-300 mb-1">Título del Material o Clase</label>
+                    <input type="text" id="adminTitle" required placeholder="Ej. Guía Wyckoff Avanzada 2026" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-brand-glow">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono text-slate-300 mb-1">Enlace Oficial de Google Drive / Vídeo</label>
+                    <input type="url" id="adminLink" required placeholder="https://drive.google.com/file/d/..." class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-brand-glow">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono text-slate-300 mb-1">Categoría</label>
+                    <select id="adminCategory" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-brand-glow">
+                        <option value="pdf">PDF & Ebook</option>
+                        <option value="plantillas">Plantilla Excel</option>
+                        <option value="indicadores">Indicador TradingView</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-brand-electric via-blue-600 to-cyan-500 text-white font-extrabold text-xs rounded-xl shadow-netflix-blue hover:brightness-110 transition-all">
+                    Publicar Inmediatamente en la Web
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="checkoutModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 relative shadow-2xl">
+            <button onclick="toggleModal('checkoutModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-6">
+                <span class="text-xs font-mono text-brand-cyan font-bold uppercase">Inscripción Segura</span>
+                <h3 class="text-xl font-bold text-white mt-1" id="checkoutCourseTitle">Trading Institucional Básico</h3>
+                <div class="text-3xl font-black text-white font-mono mt-2" id="checkoutCoursePrice">$250 USD</div>
+            </div>
+            
+            <div class="space-y-3">
+                <button onclick="simulatePaymentSuccess()" class="w-full py-3.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-3 transition-colors">
+                    <i class="fa-brands fa-stripe text-indigo-400 text-lg"></i>
+                    <span>Pagar con Tarjeta (Stripe)</span>
+                </button>
+                <button onclick="simulatePaymentSuccess()" class="w-full py-3.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-3 transition-colors">
+                    <i class="fa-brands fa-paypal text-blue-400 text-lg"></i>
+                    <span>Pagar con PayPal</span>
+                </button>
+                <button onclick="simulatePaymentSuccess()" class="w-full py-3.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-3 transition-colors">
+                    <i class="fa-solid fa-coins text-amber-400 text-lg"></i>
+                    <span>Pagar con Criptomonedas (USDT)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation Mobile Toggle
+        const mobileBtn = document.getElementById('mobileBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function closeMobileNav() {
+            mobileMenu.classList.add('hidden');
+        }
+
+        // Modal Toggles
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.toggle('hidden');
+            }
+        }
+
+        // FAQ Accordion
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Filter Library Materials
+        function filterMaterials(category) {
+            const items = document.querySelectorAll('.material-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-brand-electric', 'text-white', 'shadow-netflix-blue');
+                btn.classList.add('bg-slate-900', 'text-slate-300');
+            });
+
+            event.currentTarget.classList.add('bg-brand-electric', 'text-white', 'shadow-netflix-blue');
+            event.currentTarget.classList.remove('bg-slate-900', 'text-slate-300');
+
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Checkout Modal Trigger
+        function openCheckoutModal(title, price) {
+            document.getElementById('checkoutCourseTitle').textContent = title;
+            document.getElementById('checkoutCoursePrice').textContent = '$' + price + ' USD';
+            toggleModal('checkoutModal');
+        }
+
+        function simulatePaymentSuccess() {
+            toggleModal('checkoutModal');
+            alert('¡Pago procesado con éxito! Se han enviado los accesos a tu correo electrónico.');
+        }
+
+        function downloadSimulation(fileName) {
+            alert('Iniciando descarga directa de: ' + fileName + ' desde Google Drive...');
+        }
+
+        function playDemoVideo() {
+            alert('Cargando la Clase Magistral de Trading Institucional (6 min)...');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            alert('Mensaje enviado exitosamente. Un mentor se pondrá en contacto en menos de 24 horas.');
+        }
+
+        // Dynamic Admin CMS Upload Simulation
+        function handleAdminAddResource(e) {
+            e.preventDefault();
+            const title = document.getElementById('adminTitle').value;
+            const link = document.getElementById('adminLink').value;
+            const category = document.getElementById('adminCategory').value;
+
+            const materialsGrid = document.getElementById('materialsGrid');
+            const newCard = document.createElement('div');
+            newCard.className = 'material-card netflix-card p-6 rounded-2xl flex flex-col justify-between border border-brand-glow/40';
+            newCard.dataset.category = category;
+            newCard.innerHTML = `
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="p-3 bg-brand-glow/10 text-brand-glow rounded-xl text-xl"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+                        <span class="text-[10px] font-mono bg-slate-900 px-2.5 py-1 rounded-md text-brand-cyan border border-brand-cyan/30">NUEVO • DRIVE</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">${title}</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                        Recurso publicado desde el Panel de Administración CMS sin necesidad de modificar código.
+                    </p>
+                </div>
+                <a href="${link}" target="_blank" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-brand-cyan font-mono text-xs font-bold rounded-xl border border-brand-cyan transition-all flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-google-drive"></i>
+                    <span>Abrir en Google Drive</span>
+                </a>
+            `;
+            materialsGrid.prepend(newCard);
+
+            toggleModal('adminModal');
+            alert('¡Recurso "' + title + '" publicado exitosamente en la Biblioteca!');
+        }
+    </script>
+</body>
+</html>
